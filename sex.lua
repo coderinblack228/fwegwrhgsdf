@@ -6692,7 +6692,9 @@
 															Client.firebullet()
 															Client.firebullet()
 														end
+															if values.rage.aimbot["hit logs"].Toggle then
 																CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
+															end
 															elseif values.rage.aimbot["autoshoot"].Dropdown == "hitpart" then      
 																Client.firebullet()      
 																local Arguments = {      
@@ -6740,8 +6742,10 @@
 																		[13] = Vec3()      
 																	}      
 																	game.ReplicatedStorage.Events.HitPart:FireServer(unpack(Arguments))     
-																end      
+																end   
+																if values.rage.aimbot["hit logs"].Toggle then   
 																CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
+																end
 															end      
 															Filter = false      
 															break      
@@ -6805,7 +6809,9 @@
 																	Client.firebullet()      
 																	Client.firebullet()    
 																end  
+																if values.rage.aimbot["hit logs"].Toggle then
 																CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
+																end
 															elseif values.rage.aimbot["autoshoot"].Dropdown == "hitpart" then      
 																Client.firebullet()      
 																local Arguments = {      
@@ -6836,8 +6842,10 @@
 																	[12] = 100,      
 																	[13] = Vec3()      
 																}      
-																game.ReplicatedStorage.Events.HitPart:FireServer(unpack(Arguments))  
+																game.ReplicatedStorage.Events.HitPart:FireServer(unpack(Arguments)) 
+																if values.rage.aimbot["hit logs"].Toggle then 
 																CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
+																end
 																if values.rage.exploits["triple tap"].Toggle and values.rage.exploits["triple tap"].Active then      
 																	Client.firebullet()      
 																	local Arguments = {      
@@ -6904,9 +6912,13 @@
 																Client.firebullet()    
 																Client.firebullet()    
 															end      
-															CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
+															if values.rage.aimbot["hit logs"].Toggle then
+															CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1))
+															end 
 														elseif values.rage.aimbot["autoshoot"].Dropdown == "hitpart" then     
+															if values.rage.aimbot["hit logs"].Toggle then
 															CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1))  
+															end
 															Client.firebullet()          
 															local Arguments = {      
 																[1] = EndHit,      
