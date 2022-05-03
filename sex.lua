@@ -5217,8 +5217,7 @@
 				end      
 			end      
 		end)      
-		self:Element("Toggle", "visualize silent angle")
-		self:Element("Slider", "silent angle speed", {min = 0, max = 10, default = 5}) 
+		
 		self:Element("Slider", "fov changer", {min = 0, max = 120, default = 80}, function(value)      
 			RunService.RenderStepped:Wait()      
 			if LocalPlayer.Character == nil then return end      
@@ -5228,6 +5227,8 @@
 			end      
 		end)      
 		self:Element("Toggle", "on scope")      
+		self:Element("Toggle", "visualize silent angle")
+		self:Element("Slider", "silent angle speed", {min = 0, max = 10, default = 5}) 
 		self:Element("Toggle", "viewmodel changer")      
 		self:Element("Slider", "viewmodel x", {min = -30, max = 30}, function(val)      
 			ViewmodelOffset = CF(values.visuals.self["viewmodel x"].Slider/7, values.visuals.self["viewmodel y"].Slider/7, values.visuals.self["viewmodel z"].Slider/7) * CFAngles(0, 0, values.visuals.self.roll.Slider/50)      
