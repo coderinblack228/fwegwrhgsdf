@@ -4742,7 +4742,6 @@
 		aimbot:Element("Dropdown", "automatic fire", {options = {"off", "standard", "hitpart"}})      
 		aimbot:Element("Toggle", "automatic penetration")      
 		aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "roll", "animation","front track","bruh"}})   
-		aimbot:Element("Dropdown", "wallbangs", {options = {"standard", "force", "no"}})  
 		aimbot:Element("Toggle", "delay shot")      
 		aimbot:Element("Toggle", "force hit")    
 		aimbot:Element("Dropdown", "prediction", {options = {"off", "cframe", "velocity"}}) 
@@ -7463,12 +7462,7 @@
                 if values.different.weird["md"].Toggle then 
 					args[8] *= 99999999 * 99999999 * 999999 
 				end 
-				if values.different.weird["wallbangs"].Dropdown == "force"then 
-					args[10] = true
-				elseif values.different.weird["wallbangs"].Dropdown == "no"then 
-					args[10] = false
-				end
-				--[[if values.visuals.world["bullet tracers"].Toggle then   
+				if values.visuals.world["bullet tracers"].Toggle then   
 					if values.visuals.world["bullet tracers type"].Dropdown == "Normal" then   
 						coroutine.wrap(function()      
 							beam = INST("Part")      
@@ -7500,7 +7494,7 @@
 							end)
 						end)()
 					end
-				end  ]] 
+				end   
 				
 				if values.rage.aimbot["force hit"].Toggle then      
 					args[1] = RageTarget      
