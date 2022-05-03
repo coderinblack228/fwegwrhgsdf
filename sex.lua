@@ -4739,7 +4739,7 @@
 		aimbot:Element("Toggle", "enabled")      
 		aimbot:Element("Dropdown", "origin", {options = {"character", "camera"}})      
 		aimbot:Element("Toggle", "silent aim")      
-		aimbot:Element("Dropdown", "automatic fire", {options = {"off", "standard", "hitpart"}})      
+		aimbot:Element("Dropdown", "autoshoot", {options = {"off", "standard", "hitpart"}})      
 		aimbot:Element("Toggle", "automatic penetration")      
 		aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "roll", "animation","front track","bruh"}})   
 		aimbot:Element("Toggle", "delay shot")      
@@ -6437,15 +6437,15 @@
 									local b4 = {
 										[1] = b3.Character.UpperTorso,
 										[2] = b3.Character.UpperTorso.Position,
-										[3] = "Flip Knife",
-										[4] = 16000,
-										[5] = b3.Parent.LocalPlayer.Character.Gun,
-										[8] = RANDOM(12, 24),
-										[9] = true,
-										[10] = true,
-										[11] = Vec3(),
-										[12] = 16000,
-										[13] = Vec3()
+										[3] = "T Knife",
+										[4] = 4096,
+													[5] = LocalPlayer.Character.Gun,
+													[8] = 1,
+													[9] = false,
+													[10] = true,
+													[11] = Vector3.new(),
+													[12] = 16868,
+													[13] = Vector3.new()
 									}
 									if values.rage.exploits["hits amount"].Slider > 1 then
 										for i=1, values.rage.exploits["hits amount"].Slider do
@@ -6645,7 +6645,7 @@
 											for _,Part in pairs(Player.Character:GetChildren()) do      
 												if Part ~= Hitbox then INSERT(Ignore2, Part) end      
 											end      
-										if values.rage.aimbot['automatic penetration'].Toggle then
+										if values.rage.aimbot['autowall'].Toggle then
 										local Hits = {}
 										local EndHit, Hit, Pos
 										
@@ -6682,14 +6682,14 @@
 																Camera.CFrame = CF(CamCFrame.Position, EndHit.Position)      
 															end      
 															Filter = true      
-															if values.rage.aimbot["automatic fire"].Dropdown == "standard" then      
+															if values.rage.aimbot["autoshoot"].Dropdown == "standard" then      
 																Client.firebullet()      
 																if values.rage.exploits["triple tap"].Toggle and values.rage.exploits["triple tap"].Active then
 															Client.firebullet()
 															Client.firebullet()
 														end
 																CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
-															elseif values.rage.aimbot["automatic fire"].Dropdown == "hitpart" then      
+															elseif values.rage.aimbot["autoshoot"].Dropdown == "hitpart" then      
 																Client.firebullet()      
 																local Arguments = {      
 																	[1] = EndHit,      
@@ -6795,14 +6795,14 @@
 																Camera.CFrame = CF(CamCFrame.Position, EndHit.Position)      
 															end      
 															Filter = true      
-															if values.rage.aimbot["automatic fire"].Dropdown == "standard" then            
+															if values.rage.aimbot["autoshoot"].Dropdown == "standard" then            
 																Client.firebullet()      
 																if values.rage.exploits["triple tap"].Toggle and values.rage.exploits["triple tap"].Active then      
 																	Client.firebullet()      
 																	Client.firebullet()    
 																end  
 																CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
-															elseif values.rage.aimbot["automatic fire"].Dropdown == "hitpart" then      
+															elseif values.rage.aimbot["autoshoot"].Dropdown == "hitpart" then      
 																Client.firebullet()      
 																local Arguments = {      
 																	[1] = EndHit,      
@@ -6894,14 +6894,14 @@
 															Camera.CFrame = CF(CamCFrame.Position, Hit.Position)      
 														end      
 														Filter = true      
-														if values.rage.aimbot["automatic fire"].Dropdown == "standard" then      
+														if values.rage.aimbot["autoshoot"].Dropdown == "standard" then      
 															Client.firebullet()      
 															if values.rage.exploits["triple tap"].Toggle and values.rage.exploits["triple tap"].Active then      
 																Client.firebullet()    
 																Client.firebullet()    
 															end      
 															CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1)) 
-														elseif values.rage.aimbot["automatic fire"].Dropdown == "hitpart" then     
+														elseif values.rage.aimbot["autoshoot"].Dropdown == "hitpart" then     
 															CreateHitElement("Hit "..EndHit.Parent.Name.." in the "..EndHit.Name,Color3.new(1,1,1))  
 															Client.firebullet()          
 															local Arguments = {      
