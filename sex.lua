@@ -4752,9 +4752,10 @@
 		aimbot:Element("Toggle", "auto baim")      
 		aimbot:Element("Toggle", "knifebot")      
 		aimbot:Element("Slider", "Knifebot Radius", {min = -1, max = 1000, default = 20})
-		aimbot:Element("Slider", "HPS", {min = 1, max = 60, default = 1})
+		aimbot:Element("Slider", "HPS", {min = 1, max = 1000, default = 1})
 		aimbot:Element("Dropdown", "knifebot type", {options = {"standart", "aura", "Hittin P"}})
 		aimbot:Element("Toggle", "knife wallcheck", {default = {Toggle = true}})
+		
 		
 		local weapons = rage:MSector("weapons", "Left")      
 		local default = weapons:Tab("default")      
@@ -6514,14 +6515,16 @@
 							if Player.Team ~= LocalPlayer.Team or values.rage.aimbot.teammates.Toggle and Player:FindFirstChild("Status") and Player.Status.Team.Value ~= LocalPlayer.Status.Team.Value and Player.Status.Alive.Value then 
 							if Client.gun:FindFirstChild("Melee") and values.rage.aimbot["knifebot"].Toggle then      
 								local Ignore = {unpack(Collision)}      
-									if not values.rage.aimbot["knife wallcheck"].Toggle then
+									
+										local Ignore = {unpack(Collision)}      
+										if not values.rage.aimbot["knife wallcheck"].Toggle then
 											table.insert(Ignore, game.Workspace.Map)
 										end
-										local Ignore = {unpack(Collision)}      
 										INSERT(Ignore, workspace.Map.Clips)      
 										INSERT(Ignore, workspace.Map.SpawnPoints)      
 										INSERT(Ignore, LocalPlayer.Character)      
 										INSERT(Ignore, Player.Character.HumanoidRootPart)      
+										
 										if Player.Character:FindFirstChild("BackC4") then      
 											INSERT(Ignore, Player.Character.BackC4)      
 										end      
