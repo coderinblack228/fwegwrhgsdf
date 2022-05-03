@@ -4743,9 +4743,8 @@
 		aimbot:Element("Toggle", "automatic penetration")      
 		aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "roll", "animation","front track","bruh"}})   
 		aimbot:Element("Dropdown", "wallbangs", {options = {"standard", "force", "no"}})  
-		aimbot:Element("Toggle", "delay shot") 
-		aimbot:Element("Dropdown", "hits", {options = {"standard", "force", "headshots"}})      
-		--aimbot:Element("Toggle", "force hit")    
+		aimbot:Element("Toggle", "delay shot")      
+		aimbot:Element("Toggle", "force hit")    
 		aimbot:Element("Dropdown", "prediction", {options = {"off", "cframe", "velocity"}}) 
 		aimbot:Element("Slider", "prediction hitchance", {min = 0, max = 400, default = 50})
 		aimbot:Element("Toggle", "sex package")      
@@ -7503,13 +7502,10 @@
 					end
 				end  ]] 
 				
-				if values.rage.aimbot["hits"].Dropdown == "force" then      
+				if values.rage.aimbot["force hit"].Toggle then      
 					args[1] = RageTarget      
 					args[2] = RageTarget.Position      
-				elseif values.rage.aimbot["hits"].Dropdown == "headshots" then
-					args[1] = RageTarget.Parent.Head     
-					args[2] = RageTarget.Position
-				end
+				end      
 				if values.rage.aimbot["prediction"].Dropdown ~= "off" and RageTarget ~= nil then
 					coroutine.wrap(function()
 						if Players:GetPlayerFromCharacter(args[1].Parent) or args[1] == RageTarget then
