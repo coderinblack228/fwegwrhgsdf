@@ -4740,13 +4740,14 @@
 		aimbot:Element("Dropdown", "origin", {options = {"character", "camera"}})      
 		aimbot:Element("Toggle", "silent aim")      
 		aimbot:Element("Dropdown", "autoshoot", {options = {"off", "standard", "hitpart"}})      
-		aimbot:Element("Toggle", "automatic penetration")      
+		aimbot:Element("Toggle", "autowall")      
 		aimbot:Element("Jumbobox", "resolver", {options = {"pitch", "roll", "animation","front track","bruh"}})   
 		aimbot:Element("Toggle", "delay shot")      
 		aimbot:Element("Toggle", "force hit")    
 		aimbot:Element("Dropdown", "prediction", {options = {"off", "cframe", "velocity"}}) 
 		aimbot:Element("Slider", "prediction hitchance", {min = 0, max = 400, default = 50})
 		aimbot:Element("Toggle", "sex package")      
+		aimbot:Element("Toggle", "hit logs")  
 		aimbot:Element("Toggle", "teammates")      
 		aimbot:Element("Toggle", "auto baim")      
 		aimbot:Element("Toggle", "knifebot")      
@@ -5216,6 +5217,8 @@
 				end      
 			end      
 		end)      
+		self:Element("Toggle", "visualize silent angle")
+		self:Element("Slider", "silent angle speed", {min = 0, max = 10, default = 5}) 
 		self:Element("Slider", "fov changer", {min = 0, max = 120, default = 80}, function(value)      
 			RunService.RenderStepped:Wait()      
 			if LocalPlayer.Character == nil then return end      
@@ -7298,6 +7301,20 @@
 			end      
 		end)      
 
+		local visualsilentangle = nil
+			local speed = values.visuals.self["silent angle speed"].Slider/50
+			local last = tick()
+			RunService.RenderStepped:Connect(function()
+				if RageTarget then
+					visualsilentangle = RageTarget.Position
+					last = tick()
+				else
+					if tick() - last > speed then
+						visualsilentangle = nil
+					end
+				end
+			end)
+
 		local mt = getrawmetatable(game)      
 		local oldNamecall = mt.__namecall      
 		local oldIndex = mt.__index      
@@ -7314,6 +7331,9 @@
 					if values.visuals.self["viewmodel changer"].Toggle then      
 						args[1] = args[1] * ViewmodelOffset      
 					end      
+					if values.visuals.self["visualize silent angle"].Toggle and visualsilentangle then
+						args[1] = CFrame.lookAt(args[1].p, visualsilentangle)
+					end 
 				end      
 			end      
 			if method == "SetPrimaryPartCFrame" and self.Name ~= "Arms" then      
