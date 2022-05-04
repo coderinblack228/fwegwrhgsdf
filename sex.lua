@@ -4624,8 +4624,7 @@
 		local legit = gui:Tab("legit")      
 		local rage = gui:Tab("rage")      
 		local visuals = gui:Tab("visuals")      
-		local misc = gui:Tab("misc")    
-		local grief = gui:Tab("griefing")      
+		local misc = gui:Tab("misc")         
 		local skins = gui:Tab("skins")  
         local different = gui:Tab("different")    
 
@@ -4751,10 +4750,10 @@
 		aimbot:Element("Toggle", "teammates")      
 		aimbot:Element("Toggle", "auto baim")      
 		aimbot:Element("Toggle", "knifebot")      
+		aimbot:Element("Dropdown", "knifebot type", {options = {"standart", "aura", "Hittin P"}})
 		aimbot:Element("Slider", "Knifebot Radius", {min = -1, max = 1000, default = 20})
 		aimbot:Element("Slider", "HPS", {min = 1, max = 1000, default = 1})
-		aimbot:Element("Dropdown", "knifebot type", {options = {"standart", "aura", "Hittin P"}})
-		aimbot:Element("Toggle", "knife wallcheck", {default = {Toggle = true}})
+		aimbot:Element("Toggle", "knifebot ignore map", {default = {Toggle = false}})
 		
 		
 		local weapons = rage:MSector("weapons", "Left")      
@@ -4766,7 +4765,7 @@
 		local auto = weapons:Tab("auto")      
 
 		local function AddRage(Tab)      
-			Tab:Element("Jumbobox", "hitboxes", {options = {"head", "torso", "pelvis"}})      
+			Tab:Element("Jumbobox", "hitboxes", {options = {"head", "torso", "pelvis", "arms", "legs"}})      
 			Tab:Element("Toggle", "prefer body")      
 			Tab:Element("Slider", "minimum damage", {min = -100, max = 100, default = 20})      
 			Tab:Element("Slider", "max fov", {min = 1, max = 180, default = 180})      
@@ -4890,7 +4889,7 @@
 		exploits:Element("ToggleKeybind", "triple tap")      
 		exploits:Element("ToggleKeybind", "kill all")     
 		exploits:Element("Slider", "hits amount", {min = 1, max = 60, default = 1})  
-		exploits:Element("Slider", "quick peek vertical pos", {min = -500, max = 500, default = 200})  
+		--[[exploits:Element("Slider", "quick peek vertical pos", {min = -500, max = 500, default = 200})  
 		exploits:Element("ToggleKeybind", "quick peek",{},function(tbl)
 			if tbl.Toggle and tbl.Active and LocalPlayer.Character and Peek == false then
 				if values.rage.exploits["loop peek"].Toggle == true and values.rage.exploits["quick peek"].Active == true then
@@ -4950,7 +4949,7 @@
 				LocalPlayer.Character.HumanoidRootPart.CFrame = AutoPeek.OldPeekPosition
 			end
 			return OldClientFireBullet(...)
-		end
+		end]]
 
 
 
@@ -6113,9 +6112,7 @@
 			end      
 		end)      
 
-		local ui = misc:Sector("ui", "Left")      
-		ui:Element("Toggle", "scaling")      
-		ui:Element("Slider", "amount", {min = 5, max = 11, default = 10})      
+		      
 
 		local RifthookTK = Instance.new("ScreenGui")
 		local Main = Instance.new("TextButton")
@@ -6141,52 +6138,7 @@
 
 
 
-		local griefsector = grief:Sector("griefing","Left")
-		griefsector:Element("Button","set health to 1hp",{},function()
-			game.ReplicatedStorage.Events.FallDamage:FireServer(LocalPlayer.Character.Humanoid.Health-1)
-		end)
-		TeamDamage = false
-		griefsector:Element("Toggle","show team damage",{},function(tbl)
-			TeamDamage = tbl.Toggle
-			RifthookTK.Enabled = TeamDamage
-			spawn(function()
-				while TeamDamage do
-					pcall(function()
-						local UIListLayout = Instance.new("UIListLayout")
-						UIListLayout.Parent = Frame
-						UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-							if UIListLayout.AbsoluteContentSize.Y == 0 then
-								Main.Size = UDim2.new(0,200,0,40)
-							else
-								Main.Size = UDim2.new(0,200,0,UIListLayout.AbsoluteContentSize.Y+34)
-							end
-						end)
-						wait()
-						for i,v in pairs(Frame:GetChildren()) do
-							v:Destroy()
-						end
-						for i,v in pairs(game.Players:GetChildren()) do
-							if v.Team == LocalPlayer.Team then
-								local Label = Instance.new("TextLabel")
-								Label.Name = v.Name
-								Label.BackgroundTransparency = 1
-								Label.Size = UDim2.new(1, 0, 0, 18)
-								if v == LocalPlayer then
-									Label.Text = "You | Kills: "..tostring(math.floor(v.TeamKills.value)).." | Damage: "..tostring(math.floor(v.TeamDamage.value))
-									Label.TextColor3 = Color3.new(0.3, 1, 0.3)
-								else
-									Label.Text = v.Name.." | Kills: "..tostring(math.floor(v.TeamKills.value)).." | Damage: "..tostring(math.floor(v.TeamDamage.value))
-									Label.TextColor3 = Color3.new(1, 1, 1)
-								end
-								Label.Parent = Frame
-								Label.TextXAlignment = "Left"
-								Label.TextStrokeTransparency = 0
-							end
-						end
-					end)
-				end
-			end)
-		end)
+		
 
 		local objects = {}      
 		local utility = {}      
@@ -6517,7 +6469,7 @@
 								local Ignore = {unpack(Collision)}      
 									
 										local Ignore = {unpack(Collision)}      
-										if not values.rage.aimbot["knife wallcheck"].Toggle then
+										if values.rage.aimbot["knifebot ignore map"].Toggle then
 											table.insert(Ignore, game.Workspace.Map)
 										end
 										INSERT(Ignore, workspace.Map.Clips)      
@@ -6637,13 +6589,20 @@
 													INSERT(Hitboxes, Player.Character.LowerTorso)      
 												end      
 											else      
-												if Hitbox == "torso" then      
-													INSERT(Hitboxes, Player.Character.UpperTorso)      
-												elseif Hitbox == "pelvis" then      
-													INSERT(Hitboxes, Player.Character.LowerTorso)      
-												elseif not values.rage.aimbot["auto baim"].Toggle or Player.Character:FindFirstChild("FakeHead") then      
-													INSERT(Hitboxes, Player.Character.Head)      
-												end      
+												if Hitbox == "torso" then
+													INSERT(Hitboxes, Player.Character.UpperTorso)
+												elseif Hitbox == "pelvis" then
+													INSERT(Hitboxes, Player.Character.LowerTorso)
+												elseif Hitbox == "arms" then
+													INSERT(Hitboxes, Player.Character.RightHand)
+													INSERT(Hitboxes, Player.Character.LeftHand)
+
+												elseif Hitbox == "legs" then
+													INSERT(Hitboxes, Player.Character.LeftFoot)
+													INSERT(Hitboxes, Player.Character.RightFoot)
+												elseif not values.rage.aimbot["auto baim"].Toggle or Player.Character:FindFirstChild("FakeHead") then 
+													INSERT(Hitboxes, Player.Character.Head) 
+												end    
 											end      
 										end      
 
@@ -7310,11 +7269,7 @@
 				end      
 			end      
 
-			if (values.misc.ui.scaling.Toggle) then      
-				gui:SetScale(values.misc.ui.amount.Slider / 10)      
-			else      
-				gui:SetScale(1)      
-			end      
+			     
 		end)      
 
 		local visualsilentangle = nil
